@@ -7,6 +7,7 @@ const submitButton = document.getElementById('submitButton');
 function toggleNewPostDropDown() {
     newPost.classList.toggle('hidden');
     newPostButton.classList.toggle('rotateNewPostButton');
+    newPostComment.value = '';
 }
 
 function updateRemainingCounter() {
@@ -16,12 +17,20 @@ function updateRemainingCounter() {
 function sendPostRequest() {
     fetch('http://localhost:8080/submitPost', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username: 'Péter', postContent: newPostComment.value })
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`},
+        body: JSON.stringify({ postContent: newPostComment.value })
     })
-        .then(response => console.log(response.ok ? 'Post saved successfully' : response.json()));
-    toggleNewPostDropDown();
-    location.reload();
+        .then(response => {
+            if (response.ok) {
+                console.log('Post saved successfully');
+                toggleNewPostDropDown();
+                location.reload();
+            } else {
+                throw new Error('Error saving post');
+            }
+        });
 }
 
 newPostButton.addEventListener('click', () => {toggleNewPostDropDown()});

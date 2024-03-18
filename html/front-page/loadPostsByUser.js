@@ -1,5 +1,9 @@
 function loadPostsByUser(user) {
-    fetch(`http://localhost:8080/postsByUser?username=${user}`)
+    fetch(`http://localhost:8080/postsByUser?username=${user}`,{
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+    })
         .then(response => response.json())
         .then(data => {
             const postsContainer = document.getElementById('posts-container');

@@ -31,7 +31,11 @@ function handleSearch() {
     if (searchBar.value.length === 0) {
         removeAllChildNodes(dropDown);
     } else {
-        fetch(`http://localhost:8080/searchForUser?username=${searchBar.value}`)
+        fetch(`http://localhost:8080/searchForUser?username=${searchBar.value}`, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        })
             .then(response => response.json())
             .then(data => {
                 if (data.length !== 0) {

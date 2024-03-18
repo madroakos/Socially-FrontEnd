@@ -42,7 +42,11 @@ function createEmptyElement() {
     return emptyContainer;
 }
 
-fetch('http://localhost:8080/posts')
+fetch('http://localhost:8080/posts', {
+    headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+    }
+})
     .then(response => response.json())
     .then(data => {
         const elements = data.length !== 0 ? data.map(createPostElement) : [createEmptyElement()];
