@@ -1,0 +1,63 @@
+body {
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
+}
+
+.wholePageDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.infoDiv {
+    background-color: #c0000b;
+    height: 100%;
+    flex: 1;
+    position: relative;
+}
+
+#logo {
+    width: 30%;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#welcomeInfo {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: black;
+    text-align: center;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.loginDiv {
+    height: 100%;
+    flex: 1;
+    background-color: #C7C7C7;
+    position: relative;
+}
+
+#loginForm {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+}
+
+#loginForm input {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
