@@ -42,16 +42,29 @@ function createEmptyElement() {
     return emptyContainer;
 }
 
+setTimeout(() => {
 fetch('http://localhost:8080/posts', {
     headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
     }
 })
-    .then(response => response.json())
+    .then(response => {
+        if (response.status === 403) {
+            // Clear the JWT token
+            localStorage.removeItem('token');
+            // Redirect to login page
+            window.location.href = '../login/login.html';
+        } else {
+            return response.json();
+        }
+    })
     .then(data => {
-        const elements = data.length !== 0 ? data.map(createPostElement) : [createEmptyElement()];
-        postsContainer.append(...elements);
+        if (data) {
+            const elements = data.length !== 0 ? data.map(createPostElement) : [createEmptyElement()];
+            postsContainer.append(...elements);
+        }
     })
     .catch(error => {
         console.error('Error fetching data:', error);
     });
+}, 100);
